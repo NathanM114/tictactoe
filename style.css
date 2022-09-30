@@ -5,7 +5,7 @@
 
 :root {
     --cell-size: 100px;
-    --icon-size: cal(var(--cell-size) * .8)
+    --icon-size: calc(var(--cell-size) * .8);
 }
 
 .board-container {
@@ -23,6 +23,9 @@
     width: var(--cell-size);
     height: var(--cell-size);
     border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(3) {
@@ -39,4 +42,38 @@
 
 .cell:nth-child(1), .cell:nth-child(4), .cell:nth-child(7) {
     border-left: none;
+}
+
+.cell.x::before, .cell.x::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--icon-size) * .2);
+    height: var(--icon-size);
+    background-color: black;
+}
+
+.cell.x::before {
+    transform: rotate(45deg);
+}
+
+.cell.x::after {
+    transform: rotate(-45deg);
+}
+
+.cell.o::before, .cell.o::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.cell.o::before {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    background-color: black;
+}
+
+.cell.o::after {
+    width: calc(var(--icon-size) * .6);
+    height: calc(var(--icon-size) * .6);
+    background-color: white;
 }
