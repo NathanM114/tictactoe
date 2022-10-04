@@ -4,11 +4,11 @@
 }
 
 :root {
-    --cell-size: 100px;
+    --cell-size: 150px;
     --icon-size: calc(var(--cell-size) * .8);
 }
 
-.board-container {
+.board {
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -17,6 +17,7 @@
     align-content: center;
     justify-items: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .cell {
@@ -26,6 +27,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.cell.x, .cell.o {
+    cursor: not-allowed;
 }
 
 .cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(3) {
@@ -44,7 +49,10 @@
     border-left: none;
 }
 
-.cell.x::before, .cell.x::after {
+.cell.x::before, 
+.board.x .cell:not(.x):not(.o):hover::before, 
+.cell.x::after, 
+.board.x .cell:not(.x):not(.o):hover::after {
     content: '';
     position: absolute;
     width: calc(var(--icon-size) * .2);
@@ -52,28 +60,65 @@
     background-color: black;
 }
 
-.cell.x::before {
+.cell.x::before, 
+.board.x .cell:not(.x):not(.o):hover::before {
     transform: rotate(45deg);
 }
 
-.cell.x::after {
+.cell.x::after, 
+.board.x .cell:not(.x):not(.o):hover::after {
     transform: rotate(-45deg);
 }
 
-.cell.o::before, .cell.o::after {
+.cell.o::before, 
+.board.o .cell:not(.x):not(.o):hover::before, 
+.cell.o::after, 
+.board.o .cell:not(.x):not(.o):hover::after {
     content: '';
     position: absolute;
     border-radius: 50%;
 }
 
-.cell.o::before {
+.cell.o::before, .board.o .cell:not(.x):not(.o):hover::before {
     width: var(--icon-size);
     height: var(--icon-size);
     background-color: black;
 }
 
-.cell.o::after {
+.cell.o::after, .board.o .cell:not(.x):not(.o):hover::after {
     width: calc(var(--icon-size) * .6);
     height: calc(var(--icon-size) * .6);
     background-color: white;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after {
+    background-color: gray;
+}
+
+
+.game-over {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .85);
+    color: white;
+    font-size: 3rem;
+}
+
+.game-over button {
+    font-size: 2rem;
+    padding: 8px;
+}
+
+.game-over.show {
+    display: flex;
 }
